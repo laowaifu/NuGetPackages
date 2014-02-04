@@ -1,0 +1,23 @@
+﻿<Project ToolsVersion="4.0" DefaultTargets="default" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <BuildDir>$(MSBuildProjectDirectory)</BuildDir>
+	<DownloadNuGetExe>true</DownloadNuGetExe>
+  </PropertyGroup>
+  
+  <Target Name="default" DependsOnTargets="7ZipCLI" />
+  
+  <Target Name="7ZipCLI" DependsOnTargets="CheckPrerequisites">
+    <MSBuild Projects="$(BuildDir)\7ZipCLI\7ZipCLI.msbuild" />
+  </Target>
+  
+  <Target Name="Clean">
+    <ItemGroup>
+    <NuGetPackage Include="packages\*" />
+    </ItemGroup>
+    <Delete Files="@(NuGetPackage)" />
+	<RemoveDir Directories="$(BuildDir)\packages" />
+  </Target>
+
+  <Import Project="$(BuildDir)\.nuget\NuGet.targets" 
+          Condition="Exists('$(BuildDir)\.nuget\NuGet.targets')" />
+</Project>

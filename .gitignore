@@ -1,0 +1,23 @@
+#Ignore thumbnails created by windows and osx
+Thumbs.db
+.DS_Store
+#Nuget
+*.key
+packages
+*.nupkg
+tools
+lib
+bin
+obj
+_ReSharper*
+*.resharper
+*.cache
+*~
+*.swp
+*.swo
+*.suo
+*.user
+*.bak
+*.orig
+*.exe
+*.dll

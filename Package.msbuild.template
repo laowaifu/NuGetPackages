@@ -1,0 +1,24 @@
+﻿<Project ToolsVersion="4.0" DefaultTargets="default" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <BuildDir>$(MSBuildProjectDirectory)</BuildDir>
+  </PropertyGroup>
+  
+  <Target Name="default" DependsOnTargets="CreatePackage; LevelUp; CleanUp" />
+  
+  <Target Name="CreatePackage">
+    <Exec WorkingDirectory="$(BuildDir)" 
+          Command="$(BuildDir)\..\.nuget\nuget.exe pack $(MSBuildProjectName).nuspec" />
+  </Target>
+  
+  <Target Name="LevelUp">
+    <ItemGroup>
+    <NuGetPackage Include="*.nupkg" />
+    </ItemGroup>
+    <Copy SourceFiles="@(NuGetPackage)" 
+	      DestinationFolder="$(BuildDir)\..\packages" />
+  </Target>
+  
+  <Target Name="CleanUp">
+    <Delete Files="@(NuGetPackage)" />
+  </Target>
+</Project>
